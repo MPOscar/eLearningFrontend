@@ -41,7 +41,6 @@ export class GeneralTabComponent implements OnInit {
   courseOb: ICourse;
   enrollTypes = ENROLL_TYPES;
   enrollTypeConstants = {
-    ENROLL_TYPE_WHITELIST,
     ENROLL_TYPE_FREE,
     ENROLL_TYPE_ACCESSKEY,
   };

@@ -8,7 +8,8 @@ import {IChatRoom} from './IChatRoom';
 export const ENROLL_TYPE_WHITELIST = 'whitelist';
 export const ENROLL_TYPE_FREE = 'free';
 export const ENROLL_TYPE_ACCESSKEY = 'accesskey';
-export const ENROLL_TYPES = [ENROLL_TYPE_WHITELIST, ENROLL_TYPE_FREE, ENROLL_TYPE_ACCESSKEY];
+//export const ENROLL_TYPES = [ENROLL_TYPE_WHITELIST, ENROLL_TYPE_FREE, ENROLL_TYPE_ACCESSKEY];
+export const ENROLL_TYPES = [ENROLL_TYPE_FREE, ENROLL_TYPE_ACCESSKEY];
 
 export const FREETEXT_STYLE_NONE = '';
 export const FREETEXT_STYLE_STYLE1 = 'theme1';
