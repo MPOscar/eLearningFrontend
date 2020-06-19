@@ -1,2 +1,3 @@
+<app-navbar [showTransparent]="!isLoggedIn()"></app-navbar>
 <app-dashboard *ngIf="isLoggedIn()"></app-dashboard>
 <app-homescreen *ngIf="!isLoggedIn()"></app-homescreen>

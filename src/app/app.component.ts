@@ -1,9 +1,17 @@
-import { Component, OnInit, Inject, Renderer2, ElementRef, ViewChild } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
-import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  Inject,
+  Renderer2,
+  ElementRef,
+  ViewChild,
+} from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { Router, NavigationEnd } from "@angular/router";
+import { Subscription } from "rxjs/Subscription";
+import "rxjs/add/operator/filter";
+import { LocationStrategy, PlatformLocation, Location } from "@angular/common";
 import { UserService } from "./shared/services/user.service";
 import { AuthenticationService } from "./shared/services/authentication.service";
 import { ShowProgressService } from "./shared/services/show-progress.service";
@@ -16,18 +24,17 @@ import { TranslateService } from "@ngx-translate/core";
 import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
 import { TranslatableSnackBarService } from "./shared/services/translatable-snack-bar.service";
 import { NavbarComponent } from "./start/components/navbar/navbar.component";
-import * as Rellax from 'rellax';
+import * as Rellax from "rellax";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
-export class AppComponent implements OnInit {
-
+export class AppComponent implements OnInit, AfterViewInit{
   title = "app works!";
 
   showProgressBar = false;
-  
+
   apiInfo: APIInfo;
 
   avatarBackgroundImage: SafeStyle | undefined;
@@ -60,32 +67,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var navbar: HTMLElement = this.element.nativeElement.children[0].children[0];
+    var navbar: HTMLElement = this.element.nativeElement.children[0]
+      .children[0];
     this._router = this.router.events
       .filter((event) => event instanceof NavigationEnd)
       .subscribe((event: NavigationEnd) => {
-        if (window.outerWidth > 991) {
-          window.document.children[0].scrollTop = 0;
-        } else {
-          window.document.activeElement.scrollTop = 0;
-        }
-        this.navbar.sidebarClose();
-
-        this.renderer.listen("window", "scroll", (event) => {
-          const number = window.scrollY;
-          var _location = this.location.path();
-          _location = _location.split("/")[2];
-
-          if (number > 150 || window.pageYOffset > 150) {
-            navbar.classList.remove("navbar-transparent");
-          } else if (
-            _location !== "login" &&
-            this.location.path() !== "/nucleoicons"
-          ) {
-            // remove logic
-            navbar.classList.add("navbar-transparent");
-          }
-        });
+        window.scrollTo(0, 0);
       });
 
     const lang =
@@ -128,6 +115,11 @@ export class AppComponent implements OnInit {
         `url(${actualProfilePicturePath})`
       );
     });
+  }
+
+  
+  ngAfterViewInit(): void {
+    window.scrollTo(0, 0);
   }
 
   updateCurrentUser() {

@@ -36,8 +36,8 @@ export class CourseEditComponent {
         this.tabs.push({path: '.', label: t['common.general']});
         this.tabs.push({path: 'content', label: t['common.content']});
         this.tabs.push({path: 'media', label: t['common.media']});
-        this.tabs.push({path: 'members', label: t['common.members']});
-        this.tabs.push({path: 'teachers', label: t['common.teachers']});
+        //this.tabs.push({path: 'members', label: t['common.members']});
+        //this.tabs.push({path: 'teachers', label: t['common.teachers']});
       });
   }
 }

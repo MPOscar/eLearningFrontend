@@ -21,7 +21,7 @@
         </div>
         <div class="navbar-translate">
             <a class="navbar-brand" [routerLink]="['/index']" placement="bottom" ngbTooltip="Designed by Invision. Coded by Creative Tim">
-                Now Ui Kit
+                eLearning
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar bar1"></span>
@@ -31,41 +31,58 @@
         </div>
         <div class="collapse navbar-collapse" data-nav-image="assets/img/blurred-image-1.jpg" data-color="orange">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www.creative-tim.com/product/now-ui-kit-angular" target="_blank">
-                        <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-                        <p>Download</p>
-                    </a>
+                <li>
+                    <span *ngIf="!isLoggedIn()">
+                        <button class="login" mat-button routerLink="/login" routerLinkActive="active" class="color-white">{{ 'common.login' | translate }}</button>
+                        <button class="register" mat-button *ngIf="!isLoggedIn()" routerLink="/register"
+                                routerLinkActive="active" class="color-white">{{ 'common.register' | translate }}</button>
+                        <span class="between-distance" *ngIf="!isLoggedIn()"></span>
+                    </span>
+
+                    <span *ngIf="isLoggedIn()">
+                        <button mat-button routerLink="/profile" class="color-white">
+                          <img *ngIf="this.avatarBackgroundImage === undefined; else elseBlock"
+                               class="avatar" src="{{this.userService.user.getGravatarURL(30)}}" width="30" height="30">
+                          <ng-template #elseBlock>
+                            <div class="user-icon" [style.backgroundImage]="this.avatarBackgroundImage"></div>
+                          </ng-template>
+                          <span class="firstname-wrapper">{{ this.userService.user.profile.firstName }}</span>
+                    </button>
+                    <app-notification *ngIf="isStudent()" class="app-notification"></app-notification>
+                    </span>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://creativetimofficial.github.io/now-ui-kit-angular/documentation/tutorial" target="_blank">
-                        <i class="now-ui-icons files_paper"></i>
-                        <p>Documentation</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-neutral" (click)="login()">
-                        <i class="now-ui-icons arrows-1_share-66"></i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                        <p class="d-lg-none d-xl-none">Twitter</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank">
-                        <i class="fab fa-facebook-square"></i>
-                        <p class="d-lg-none d-xl-none">Facebook</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                        <p class="d-lg-none d-xl-none">Instagram</p>
-                    </a>
+                <!--<li>
+                    <button mat-icon-button [matMenuTriggerFor]="langMenu" class="color-white">
+                        <mat-icon>language</mat-icon>
+                        <span>{{translate.currentLang | uppercase}}</span>
+                      </button>
+                    <mat-menu #langMenu="matMenu">
+                        <button mat-menu-item (click)="changeLanguage('de')">
+                          Deutsch
+                        </button>
+                        <button mat-menu-item (click)="changeLanguage('en')">
+                          English
+                        </button>
+                    </mat-menu>
+                </li>-->
+                <li>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button" *ngIf="isLoggedIn()">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item *ngIf="isLoggedIn() && isAdmin()" routerLink="/admin" routerLinkActive="active">
+                        <mat-icon>settings</mat-icon>
+                        <span>{{ 'mainMenu.admin' | translate }}</span>
+                        </button>
+                        <button mat-menu-item *ngIf="isLoggedIn() && isStudent()" routerLink="/userSettings" routerLinkActive="active">
+                        <mat-icon>settings</mat-icon>
+                        <span>{{ 'mainMenu.userSettings' | translate }}</span>
+                        </button>
+                        <button mat-menu-item *ngIf="isLoggedIn()" (click)="logout()" routerLink="" routerLinkActive="active">
+                        <mat-icon>exit_to_app</mat-icon>
+                        <span>{{ 'mainMenu.logout' | translate }}</span>
+                        </button>
+                    </mat-menu>
                 </li>
             </ul>
         </div>

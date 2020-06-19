@@ -67,7 +67,8 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         this.tabs = [{path: 'overview', label: t['common.content'], img: 'school'},
           {path: 'fileview', label: t['common.documents'], img: 'insert_drive_file'},
           {path: 'videoview', label: t['common.videos'], img: 'video_library'},
-          {path: 'download', label: t['common.downloadBeta'], img: 'get_app'}];
+          //{path: 'download', label: t['common.downloadBeta'], img: 'get_app'}
+        ];
       });
   }
 

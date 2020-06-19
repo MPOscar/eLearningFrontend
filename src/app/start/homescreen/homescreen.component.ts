@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     page = 4;
     page1 = 5;
     page2 = 3;
-    focus;
-    focus1;
-    focus2;
+    focus = false;
+    focus1 = false;
+    focus2 = false;
 
     date: {year: number, month: number};
     model: NgbDateStruct;
@@ -46,13 +46,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-      var rellaxHeader = new Rellax('.rellax-header');
-
+        var rellaxHeader = new Rellax('.rellax-header');
         var navbar = document.getElementsByTagName('nav')[0];
         navbar.classList.add('navbar-transparent');
         var body = document.getElementsByTagName('body')[0];
         body.classList.add('index-page');
     }
+
     ngOnDestroy(){
         var navbar = document.getElementsByTagName('nav')[0];
         navbar.classList.remove('navbar-transparent');

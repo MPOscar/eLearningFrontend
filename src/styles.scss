@@ -200,3 +200,13 @@ app-root>.app-wrapper {
         transform: translate3d(0, 100%, 0);
     }
 }
+
+*:focus {
+    outline: none !important;
+    border: 0 !important;
+}
+
+//
+.color-white {
+    color: white !important;
+}
