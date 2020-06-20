@@ -15,7 +15,7 @@ import {emailValidator} from '../../shared/validators/validators';
 })
 export class ActivationResendComponent implements OnInit {
   resendActivationForm: FormGroup;
-  resendActivationDone = true;
+  resendActivationDone = false;
   loading = false;
   uidError = null;
   mailError = null;
