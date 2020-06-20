@@ -1,128 +1,289 @@
-<mat-card *ngIf="registrationDone">
-  <mat-card-header>
-    <mat-card-title><h1>{{'auth.registration.successful'|translate}}</h1></mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>{{'auth.registration.mailSent'|translate}}</p>
-  </mat-card-content>
-  <mat-card-actions align="start">
-    <button mat-raised-button color="primary" routerLink="/" routerLinkActive="active">
+<!--<mat-card *ngIf="!registrationDone">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>{{'auth.registration.successful'|translate}}</h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{'auth.registration.mailSent'|translate}}</p>
+    </mat-card-content>
+    <mat-card-actions align="start">
+        <button mat-raised-button color="primary" routerLink="/" routerLinkActive="active">
       {{'auth.registration.back'|translate}}
     </button>
-  </mat-card-actions>
+    </mat-card-actions>
 </mat-card>
 <mat-card class="register-card" *ngIf="!registrationDone">
-  <mat-card-header>
-    <mat-card-title><h1 class="title">{{'auth.registration.registerAs'|translate}}
-      {{'common.roles.'+role|translate}}</h1></mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form name="form" (ngSubmit)="register()" [formGroup]="registerForm">
-      <div class="form-group" formGroupName="profile">
-        <mat-form-field>
-          <input matInput formControlName="firstName"
-                 [placeholder]="'common.profileDetails.firstName'|translate" maxlength="64"/>
-          <div *ngIf="registerForm.get('profile').get('firstName').touched">
-            <small *ngIf="registerForm.get('profile').get('firstName').hasError('required')"
-                   class="text-danger">
+    <mat-card-header>
+        <mat-card-title>
+            <h1 class="title">{{'auth.registration.registerAs'|translate}} {{'common.roles.'+role|translate}}
+            </h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form name="form" (ngSubmit)="register()" [formGroup]="registerForm">
+            <div class="form-group" formGroupName="profile">
+                <mat-form-field>
+                    <input matInput formControlName="firstName" [placeholder]="'common.profileDetails.firstName'|translate" maxlength="64" />
+                    <div *ngIf="registerForm.get('profile').get('firstName').touched">
+                        <small *ngIf="registerForm.get('profile').get('firstName').hasError('required')" class="text-danger">
               {{'common.validation.required'|translate}}
             </small>
-            <small *ngIf="registerForm.get('profile').get('firstName').hasError('minlength')"
-                   class="text-danger" translate [translateParams]="{min:2}">
+                        <small *ngIf="registerForm.get('profile').get('firstName').hasError('minlength')" class="text-danger" translate [translateParams]="{min:2}">
               common.validation.minLength
             </small>
-            <small *ngIf="registerForm.get('profile').get('firstName').hasError('maxlength')"
-                   class="text-danger" translate [translateParams]="{max:64}">
+                        <small *ngIf="registerForm.get('profile').get('firstName').hasError('maxlength')" class="text-danger" translate [translateParams]="{max:64}">
               common.validation.maxLength
             </small>
-          </div>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput formControlName="lastName"
-                 [placeholder]="'common.profileDetails.lastName'|translate" maxlength="64"/>
-          <div *ngIf="registerForm.get('profile').get('lastName').touched">
-            <small *ngIf="registerForm.get('profile').get('lastName').hasError('required')"
-                   class="text-danger">
+                    </div>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput formControlName="lastName" [placeholder]="'common.profileDetails.lastName'|translate" maxlength="64" />
+                    <div *ngIf="registerForm.get('profile').get('lastName').touched">
+                        <small *ngIf="registerForm.get('profile').get('lastName').hasError('required')" class="text-danger">
               {{'common.validation.required'|translate}}
             </small>
-            <small *ngIf="registerForm.get('profile').get('lastName').hasError('minlength')"
-                   class="text-danger" translate [translateParams]="{min:2}">
+                        <small *ngIf="registerForm.get('profile').get('lastName').hasError('minlength')" class="text-danger" translate [translateParams]="{min:2}">
               common.validation.minLength
             </small>
-            <small *ngIf="registerForm.get('profile').get('lastName').hasError('maxlength')"
-                   class="text-danger" translate [translateParams]="{max:64}">
+                        <small *ngIf="registerForm.get('profile').get('lastName').hasError('maxlength')" class="text-danger" translate [translateParams]="{max:64}">
               common.validation.maxLength
             </small>
-          </div>
-        </mat-form-field>
-      </div>
+                    </div>
+                </mat-form-field>
+            </div>
 
-      <mat-form-field>
-        <input matInput formControlName="email" [placeholder]="'common.email'|translate"/>
-        <div *ngIf="registerForm.controls.email.touched">
-          <small *ngIf="registerForm.controls.email.hasError('required')" class="text-danger">
+            <mat-form-field>
+                <input matInput formControlName="email" [placeholder]="'common.email'|translate" />
+                <div *ngIf="registerForm.controls.email.touched">
+                    <small *ngIf="registerForm.controls.email.hasError('required')" class="text-danger">
             {{'common.validation.required'|translate}}
           </small>
-          <small *ngIf="mailError" class="text-danger">{{mailError}}</small>
-          <small
-            *ngIf="registerForm.controls.email.hasError('teacherEmailError') && !registerForm.controls.email.hasError('emailValidator') && !registerForm.controls.email.hasError('required')"
-            class="text-danger">{{'common.validation.instituteMail'|translate}}
+                    <small *ngIf="mailError" class="text-danger">{{mailError}}</small>
+                    <small *ngIf="registerForm.controls.email.hasError('teacherEmailError') && !registerForm.controls.email.hasError('emailValidator') && !registerForm.controls.email.hasError('required')" class="text-danger">{{'common.validation.instituteMail'|translate}}
           </small>
-          <small
-            *ngIf="registerForm.controls.email.hasError('emailValidator') && !registerForm.controls.email.hasError('teacherMailError') && !registerForm.controls.email.hasError('required')"
-            class="text-danger">
+                    <small *ngIf="registerForm.controls.email.hasError('emailValidator') && !registerForm.controls.email.hasError('teacherMailError') && !registerForm.controls.email.hasError('required')" class="text-danger">
             {{'common.validation.invalid'|translate}}
           </small>
-        </div>
-      </mat-form-field>
+                </div>
+            </mat-form-field>
 
-      <div *ngIf="role == 'student'">
-        <mat-form-field>
-          <input matInput formControlName="uid" [placeholder]="'common.profileDetails.uid'|translate"/>
-          <div *ngIf="registerForm.controls.uid.touched">
-            <small *ngIf="uidError" class="text-danger">{{uidError}}</small>
-            <small *ngIf="registerForm.controls.uid.hasError('validateMatriculationNumber')" class="text-danger">
+            <div *ngIf="role == 'student'">
+                <mat-form-field>
+                    <input matInput formControlName="uid" [placeholder]="'common.profileDetails.uid'|translate" />
+                    <div *ngIf="registerForm.controls.uid.touched">
+                        <small *ngIf="uidError" class="text-danger">{{uidError}}</small>
+                        <small *ngIf="registerForm.controls.uid.hasError('validateMatriculationNumber')" class="text-danger">
               {{'common.validation.required'|translate}}
             </small>
-          </div>
-        </mat-form-field>
-      </div>
+                    </div>
+                </mat-form-field>
+            </div>
 
-      <app-password-input [form]="registerForm"></app-password-input>
-      <div>
-      <mat-checkbox class="terms-checkbox"  formControlName="termsCheckbox">
-        <span class="privacy-label">
+            <app-password-input [form]="registerForm"></app-password-input>
+            <div>
+                <mat-checkbox class="terms-checkbox" formControlName="termsCheckbox">
+                    <span class="privacy-label">
           {{'auth.registration.acceptCheckboxes' | translate}}
           <a target="_blank" routerLink="/legalnotice" routerLinkActive="active">
             {{'auth.registration.termsOfUse' | translate}}
           </a>
         </span>
-      </mat-checkbox>
-      <mat-checkbox class="privacy-checkbox" formControlName="privacyCheckbox">
-        <span class="privacy-label">
+                </mat-checkbox>
+                <mat-checkbox class="privacy-checkbox" formControlName="privacyCheckbox">
+                    <span class="privacy-label">
           {{'auth.registration.acceptCheckboxes' | translate}}
           <a target="_blank" routerLink="/privacy" routerLinkActive="active">
             {{'auth.registration.privacyDeclaration' | translate}}
           </a>
         </span>
-      </mat-checkbox>
-    </div>
-    <button class="register-button" [matTooltip]="'auth.registration.tooltipRegister' | translate" mat-raised-button color="primary" type="submit"
-              [disabled]="loading || !registerForm?.valid">{{'common.register'|translate}}
+                </mat-checkbox>
+            </div>
+            <button class="register-button" [matTooltip]="'auth.registration.tooltipRegister' | translate" mat-raised-button color="primary" type="submit" [disabled]="loading || !registerForm?.valid">{{'common.register'|translate}}
     </button>
-    </form>
-    <div class="bottom-buttons">
-      <button *ngIf="role == 'student'" mat-button type="button" routerLink="/activation-resend" routerLinkActive="active">
+        </form>
+        <div class="bottom-buttons">
+            <button *ngIf="role == 'student'" mat-button type="button" routerLink="/activation-resend" routerLinkActive="active">
         {{'auth.registration.resendActivationButton'|translate}}
       </button>
 
-      <button mat-button *ngIf="role==='student'" (click)="changeRole('teacher')" class="pull-right">
+            <button mat-button *ngIf="role==='student'" (click)="changeRole('teacher')" class="pull-right">
         {{'auth.registration.teacherRegistrationButton'|translate}}
       </button>
 
-      <button mat-button *ngIf="role!=='student'" (click)="changeRole('student')" class="pull-right">
+            <button mat-button *ngIf="role!=='student'" (click)="changeRole('student')" class="pull-right">
         {{'common.back'|translate}}
       </button>
+        </div>
+    </mat-card-content>
+    </mat-card>-->
+
+
+<div class="section section-signup height-100-pct width-100-pct pt-0 page-header" style="background-image: url('assets/img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 100vh; " filter-color="orange">
+    <div class="container login-page" *ngIf="!registrationDone">
+        <div class="row text-center mt-5">
+            <div class="col-md-8 ml-auto mr-auto">
+                <h2>{{'auth.registration.successful'|translate}}</h2>
+                <h5 class="description">{{'auth.registration.mailSent'|translate}}</h5>
+            </div>
+            <div class="col-md-12">
+                <a class="btn btn-neutral btn-round btn-lg">
+                    <a [routerLink]="['/home']" class="btn btn-simple btn-round btn-white btn-lg mt-0">Go to Home</a>
+                </a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row justify-content-md-center sharing-area text-center">
+            <div class="text-center col-md-12 col-lg-8">
+                <h3>Thank you for join us!</h3>
+            </div>
+            <div class="text-center col-md-12 col-lg-8">
+                <a target="_blank" href="https://www.twitter.com/creativetim" class="btn btn-neutral btn-icon btn-twitter btn-round btn-lg" rel="tooltip" title="Follow us">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a target="_blank" href="https://www.facebook.com/creativetim" class="btn btn-neutral btn-icon btn-facebook btn-round btn-lg" rel="tooltip" title="Like us">
+                    <i class="fab fa-facebook-square"></i>
+                </a>
+                <a target="_blank" href="https://www.linkedin.com/company-beta/9430489/" class="btn btn-neutral btn-icon btn-linkedin btn-lg btn-round" rel="tooltip" title="Follow us">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a target="_blank" href="https://github.com/creativetimofficial/now-ui-kit-angular" class="btn btn-neutral btn-icon btn-github btn-round btn-lg" rel="tooltip" title="Star on Github">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
     </div>
-  </mat-card-content>
-</mat-card>
+    <div class="container login-page" *ngIf="registrationDone">
+        <div class="row">
+            <div class="col-md-4 content-center ml-auto mr-auto">
+                <div class="card card-login card-plain">
+                    <form name="form" (ngSubmit)="register()" [formGroup]="registerForm">
+                        <div class="header header-primary text-center">
+                            <h4 class="title">{{'auth.registration.registerAs'|translate}} {{'common.roles.'+role|translate}}
+                            </h4>
+                        </div>
+                        <div class="content">
+                            <div class="form-group" formGroupName="profile">
+                                <div class="input-group form-group-no-border input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                    </div>
+                                    <input matInput formControlName="firstName" class="form-control" [placeholder]="'common.profileDetails.firstName'|translate" maxlength="64" />
+                                    <div *ngIf="registerForm.get('profile').get('firstName').touched">
+                                        <small *ngIf="registerForm.get('profile').get('firstName').hasError('required')" class="text-danger">
+                                      {{'common.validation.required'|translate}}
+                                    </small>
+                                        <small *ngIf="registerForm.get('profile').get('firstName').hasError('minlength')" class="text-danger" translate [translateParams]="{min:2}">
+                                      common.validation.minLength
+                                    </small>
+                                        <small *ngIf="registerForm.get('profile').get('firstName').hasError('maxlength')" class="text-danger" translate [translateParams]="{max:64}">
+                                      common.validation.maxLength
+                                    </small>
+                                    </div>
+                                </div>
+                                <div class="input-group form-group-no-border input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                    </div>
+                                    <input matInput formControlName="lastName" class="form-control" [placeholder]="'common.profileDetails.lastName'|translate" maxlength="64" />
+                                    <div *ngIf="registerForm.get('profile').get('lastName').touched">
+                                        <small *ngIf="registerForm.get('profile').get('lastName').hasError('required')" class="text-danger">
+                                    {{'common.validation.required'|translate}}
+                                  </small>
+                                        <small *ngIf="registerForm.get('profile').get('lastName').hasError('minlength')" class="text-danger" translate [translateParams]="{min:2}">
+                                      common.validation.minLength
+                                    </small>
+                                        <small *ngIf="registerForm.get('profile').get('lastName').hasError('maxlength')" class="text-danger" translate [translateParams]="{max:64}">
+                                      common.validation.maxLength
+                                    </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group form-group-no-border input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                </div>
+                                <input matInput formControlName="email" class="form-control" [placeholder]="'common.email'|translate" />
+                                <div *ngIf="registerForm.controls.email.touched">
+                                    <small *ngIf="registerForm.controls.email.hasError('required')" class="text-danger">
+                                      {{'common.validation.required'|translate}}
+                                    </small>
+                                    <small *ngIf="mailError" class="text-danger">{{mailError}}</small>
+                                    <small *ngIf="registerForm.controls.email.hasError('teacherEmailError') && !registerForm.controls.email.hasError('emailValidator') && !registerForm.controls.email.hasError('required')" class="text-danger">{{'common.validation.instituteMail'|translate}}
+                                    </small>
+                                    <small *ngIf="registerForm.controls.email.hasError('emailValidator') && !registerForm.controls.email.hasError('teacherMailError') && !registerForm.controls.email.hasError('required')" class="text-danger">
+                                      {{'common.validation.invalid'|translate}}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="input-group form-group-no-border input-lg" *ngIf="role == 'student'">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                </div>
+                                <input matInput formControlName="uid" class="form-control" [placeholder]="'common.profileDetails.uid'|translate" />
+                                <div *ngIf="registerForm.controls.uid.touched">
+                                    <small *ngIf="uidError" class="text-danger">{{uidError}}</small>
+                                    <small *ngIf="registerForm.controls.uid.hasError('validateMatriculationNumber')" class="text-danger">
+                                      {{'common.validation.required'|translate}}
+                                    </small>
+                                </div>
+                            </div>
+                            <app-password-input [form]="registerForm"></app-password-input>
+                            <div>
+                                <div class="form-check text-left">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" formControlName="termsCheckbox">
+                                        <span class="form-check-sign color-white">
+                                          {{'auth.registration.acceptCheckboxes' | translate}}
+                                        </span>
+                                        <span class="text-primary">
+                                          {{'auth.registration.termsOfUse' | translate}}
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-check text-left">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox" formControlName="privacyCheckbox">
+                                      <span class="form-check-sign color-white">
+                                        {{'auth.registration.acceptCheckboxes' | translate}}
+                                      </span>
+                                      <span class="text-primary">
+                                        {{'auth.registration.privacyDeclaration' | translate}}
+                                      </span>
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer text-center pt-1 pb-1">
+                            <button class="btn btn-primary btn-round btn-lg btn-block">Register</button>
+                        </div>
+                        <div class="text-center">
+                            <h6>
+                                <a *ngIf="role == 'student'" routerLink="/activation-resend" routerLinkActive="active" class="link"> {{'auth.registration.resendActivationButton'|translate}}</a>
+                            </h6>
+                        </div>
+                        <div class="text-center">
+                            <h6>
+                                <a *ngIf="role==='student'" (click)="changeRole('teacher')" class="link cursor-pointer">{{'auth.registration.teacherRegistrationButton'|translate}}</a>
+                            </h6>
+                        </div>
+                        <div class="text-center">
+                            <h6>
+                                <a *ngIf="role!=='student'" (click)="changeRole('student')" class="link cursor-pointer">{{'common.back'|translate}}</a>
+                            </h6>
+                        </div>
+                        <div class="text-center">
+                            <h6>
+                                <a class="link cursor-pointer">Need Help?</a>
+                            </h6>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col text-center">
+            <a [routerLink]="['/login']" class="btn btn-simple btn-round btn-white btn-lg mt-0">Go to Login</a>
+        </div>
+    </div>
+</div>

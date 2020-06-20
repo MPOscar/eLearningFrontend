@@ -1,4 +1,4 @@
-<mat-card class="login-card">
+<!--<mat-card class="login-card">
   <mat-card-header>
     <mat-card-title><h1>{{'common.login'|translate}}</h1></mat-card-title>
   </mat-card-header>
@@ -20,4 +20,56 @@
       </button>
     </form>
   </mat-card-content>
-</mat-card>
+</mat-card>-->
+<div class="section section-signup height-100vh width-100-pct page-header" style="background-image: url('assets/img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 700px;" filter-color="orange">
+    <div class="container login-page">
+        <div class="row">
+            <div class="col-md-4 content-center ml-auto mr-auto">
+                <div class="card card-login card-plain">
+                    <form name="form" (ngSubmit)="login()" [formGroup]="loginForm">
+                        <div class="header header-primary text-center">
+                            <div class="logo-container">
+                                <img src="assets/img/now-logo.png" alt="">
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="input-group form-group-no-border input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                </div>
+                                <input matInput formControlName="email" class="form-control" [placeholder]="'common.email'|translate">
+                            </div>
+                            <div class="input-group form-group-no-border input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="now-ui-icons text_caps-small"></i></span>
+                                </div>
+                                <input matInput type="password" class="form-control" formControlName="password" [placeholder]="'common.password'|translate">
+                            </div>
+                        </div>
+                        <div class="footer text-center">
+                            <button href="#pablo" class="btn btn-primary btn-round btn-lg btn-block">Login</button>
+                        </div>
+                        <div class="text-center">
+                            <h6>
+                                <a class="link" routerLink="/reset">Forgot my password</a>
+                            </h6>
+                        </div>
+                        <div class="text-center">
+                            <h6>
+                                <a [routerLink]="['/register']" class="link">Create Account</a>
+                            </h6>
+                        </div>
+                        <div class="text-center">
+                            <h6>
+                                <a href="#pablo" class="link">Need Help?</a>
+                            </h6>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col text-center">
+            <a [routerLink]="['/home']" class="btn btn-simple btn-round btn-white btn-lg">Get Started</a>
+        </div>
+    </div>
+</div>

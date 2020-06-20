@@ -210,3 +210,35 @@ app-root>.app-wrapper {
 .color-white {
     color: white !important;
 }
+
+.width-100-pct {
+    width: 100% !important;
+}
+
+.height-100vh {
+    height: 100vh !important;
+}
+
+.height-100-pct {
+    height: 100% !important;
+}
+
+.pt-0 {
+    padding-top: 0px !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+    -webkit-transition-delay: 9999s;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.text-left {
+    text-align: left !important;
+}

@@ -17,6 +17,7 @@ import {NotfoundComponent} from './shared/components/notfound/notfound.component
 const routes: Routes = [
   {path: 'not-found', component: NotfoundComponent},
   {path: '', component: StartComponent, pathMatch: 'full'},
+  {path: 'home', component: StartComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'activation-resend', component: ActivationResendComponent},
