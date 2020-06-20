@@ -120,16 +120,14 @@
 
 
 <div class="section section-signup height-100-pct width-100-pct pt-0 page-header" style="background-image: url('assets/img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 100vh; " filter-color="orange">
-    <div class="container login-page" *ngIf="!registrationDone">
+    <div class="container login-page" *ngIf="registrationDone">
         <div class="row text-center mt-5">
             <div class="col-md-8 ml-auto mr-auto">
                 <h2>{{'auth.registration.successful'|translate}}</h2>
                 <h5 class="description">{{'auth.registration.mailSent'|translate}}</h5>
             </div>
             <div class="col-md-12">
-                <a class="btn btn-neutral btn-round btn-lg">
-                    <a [routerLink]="['/home']" class="btn btn-simple btn-round btn-white btn-lg mt-0">Go to Home</a>
-                </a>
+                <a [routerLink]="['/home']" class="btn btn-simple btn-round btn-white btn-lg mt-0">Go to Home</a>
             </div>
         </div>
         <br>
@@ -154,7 +152,7 @@
             </div>
         </div>
     </div>
-    <div class="container login-page" *ngIf="registrationDone">
+    <div class="container login-page" *ngIf="!registrationDone">
         <div class="row">
             <div class="col-md-4 content-center ml-auto mr-auto">
                 <div class="card card-login card-plain">
