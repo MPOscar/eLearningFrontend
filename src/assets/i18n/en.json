@@ -48,6 +48,7 @@
             "tooltipResendAction": "Click here to request new activation link."
         },
         "resetPassword": {
+            "back": "Back to login",
             "requestReset": "Request password reset",
             "reset": "Reset"
         },

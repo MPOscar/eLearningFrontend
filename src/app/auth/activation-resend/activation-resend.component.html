@@ -1,83 +1,166 @@
-<mat-card *ngIf="resendActivationDone">
-  <mat-card-header>
-    <mat-card-title><h1>{{'auth.resendActivation.successful'|translate}}</h1></mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>{{'auth.resendActivation.mailSent'|translate}}</p>
-  </mat-card-content>
-  <mat-card-actions align="start">
-    <button mat-raised-button color="primary" routerLink="/" routerLinkActive="active">
+<!--<mat-card *ngIf="resendActivationDone">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>{{'auth.resendActivation.successful'|translate}}</h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{'auth.resendActivation.mailSent'|translate}}</p>
+    </mat-card-content>
+    <mat-card-actions align="start">
+        <button mat-raised-button color="primary" routerLink="/" routerLinkActive="active">
       {{'auth.registration.back'|translate}}
     </button>
-  </mat-card-actions>
+    </mat-card-actions>
 </mat-card>
 <mat-card class="resendActivation-card" *ngIf="!resendActivationDone">
-  <mat-card-header>
-    <mat-card-title><h1 class="title">{{'auth.registration.resendActivationButton'|translate}}</h1></mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form name="form" (ngSubmit)="resendActivation()" [formGroup]="resendActivationForm">
-      <div class="form-group" formGroupName="profile">
-        <mat-form-field>
-          <input matInput formControlName="lastName"
-                 [placeholder]="'common.profileDetails.lastName'|translate"/>
-          <div *ngIf="resendActivationForm.get('profile').get('lastName').touched">
-            <small *ngIf="resendActivationForm.get('profile').get('lastName').hasError('required')"
-                   class="text-danger">
+    <mat-card-header>
+        <mat-card-title>
+            <h1 class="title">{{'auth.registration.resendActivationButton'|translate}}</h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form name="form" (ngSubmit)="resendActivation()" [formGroup]="resendActivationForm">
+            <div class="form-group" formGroupName="profile">
+                <mat-form-field>
+                    <input matInput formControlName="lastName" [placeholder]="'common.profileDetails.lastName'|translate" />
+                    <div *ngIf="resendActivationForm.get('profile').get('lastName').touched">
+                        <small *ngIf="resendActivationForm.get('profile').get('lastName').hasError('required')" class="text-danger">
               {{'common.validation.required'|translate}}
             </small>
-            <small *ngIf="resendActivationForm.get('profile').get('lastName').hasError('minlength')"
-                   class="text-danger" translate [translateParams]="{min:2}">
+                        <small *ngIf="resendActivationForm.get('profile').get('lastName').hasError('minlength')" class="text-danger" translate [translateParams]="{min:2}">
               common.validation.minLength
             </small>
-          </div>
-        </mat-form-field>
-      </div>
+                    </div>
+                </mat-form-field>
+            </div>
 
-      <div>
-        <mat-form-field>
-          <input matInput formControlName="uid" [placeholder]="'common.profileDetails.uid' | translate"/>
-          <div *ngIf="resendActivationForm.controls.uid.touched">
-            <small *ngIf="resendActivationForm.controls.uid.hasError('required')" class="text-danger">
+            <div>
+                <mat-form-field>
+                    <input matInput formControlName="uid" [placeholder]="'common.profileDetails.uid' | translate" />
+                    <div *ngIf="resendActivationForm.controls.uid.touched">
+                        <small *ngIf="resendActivationForm.controls.uid.hasError('required')" class="text-danger">
               {{'common.validation.required'|translate}}
             </small>
-            <small *ngIf="uidError" class="text-danger">{{uidError}}</small>
-            <small *ngIf="resendActivationForm.controls.uid.hasError('validateMatriculationNumber')" class="text-danger">
+                        <small *ngIf="uidError" class="text-danger">{{uidError}}</small>
+                        <small *ngIf="resendActivationForm.controls.uid.hasError('validateMatriculationNumber')" class="text-danger">
               {{'common.validation.required'|translate}}
             </small>
-          </div>
-        </mat-form-field>
-      </div>
+                    </div>
+                </mat-form-field>
+            </div>
 
-      <div>
-        <mat-form-field>
-          <input matInput formControlName="email" [placeholder]="'common.email'|translate"/>
-          <div *ngIf="resendActivationForm.controls.email.touched">
-            <small *ngIf="resendActivationForm.controls.email.hasError('required')" class="text-danger">
+            <div>
+                <mat-form-field>
+                    <input matInput formControlName="email" [placeholder]="'common.email'|translate" />
+                    <div *ngIf="resendActivationForm.controls.email.touched">
+                        <small *ngIf="resendActivationForm.controls.email.hasError('required')" class="text-danger">
               {{'common.validation.required'|translate}}
             </small>
-            <small *ngIf="mailError" class="text-danger">{{mailError}}</small>
-            <small
-              *ngIf="resendActivationForm.controls.email.hasError('emailValidator') && !resendActivationForm.controls.email.hasError('required')"
-              class="text-danger">
+                        <small *ngIf="mailError" class="text-danger">{{mailError}}</small>
+                        <small *ngIf="resendActivationForm.controls.email.hasError('emailValidator') && !resendActivationForm.controls.email.hasError('required')" class="text-danger">
               {{'common.validation.invalid'|translate}}
             </small>
-          </div>
-        </mat-form-field>
-      </div>
+                    </div>
+                </mat-form-field>
+            </div>
 
 
-      <div *ngIf="formError" class="text-danger" id="resendActivationFormError">{{formError}}</div>
+            <div *ngIf="formError" class="text-danger" id="resendActivationFormError">{{formError}}</div>
 
-      <button [matTooltip]="'auth.resendActivation.tooltipResendAction' | translate" mat-raised-button color="primary" type="submit"
-              [disabled]="loading || !resendActivationForm?.valid">{{'common.send'|translate}}
+            <button [matTooltip]="'auth.resendActivation.tooltipResendAction' | translate" mat-raised-button color="primary" type="submit" [disabled]="loading || !resendActivationForm?.valid">{{'common.send'|translate}}
       </button>
-    </form>
-    <div class="bottom-buttons">
-      <button mat-button type="button" routerLink="/register" routerLinkActive="active">
+        </form>
+        <div class="bottom-buttons">
+            <button mat-button type="button" routerLink="/register" routerLinkActive="active">
         {{'auth.resendActivation.back'|translate}}
       </button>
-    </div>
+        </div>
 
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+</mat-card>-->
+
+<div class="section section-signup height-100-pct width-100-pct pt-0 page-header" style="background-image: url('assets/img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 100vh; " filter-color="orange">
+    <div class="container login-page" *ngIf="resendActivationDone">
+        <div class="row text-center mt-5">
+            <div class="col-md-8 ml-auto mr-auto">
+                <h2>{{'auth.resendActivation.successful'|translate}}</h2>
+                <h5 class="description">{{'auth.resendActivation.mailSent'|translate}}</h5>
+            </div>
+            <div class="col-md-12">
+                <a [routerLink]="['/home']" class="btn btn-simple btn-round btn-white btn-lg mt-0">Go to Home</a>
+            </div>
+        </div>
+    </div>
+    <div class="container login-page" *ngIf="!resendActivationDone">
+        <div class="row">
+            <div class="col-md-4 content-center ml-auto mr-auto">
+                <div class="card card-login card-plain">
+                    <form name="form" (ngSubmit)="resendActivation()" [formGroup]="resendActivationForm">
+                        <div class="header header-primary text-center">
+                            <h4 class="title">{{'auth.registration.resendActivationButton'|translate}}
+                            </h4>
+                        </div>
+                        <div class="content">
+                            <div class="form-group" formGroupName="profile">
+                                <div class="input-group form-group-no-border input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                    </div>
+                                    <input matInput formControlName="lastName" class="form-control" [placeholder]="'common.profileDetails.lastName'|translate" />
+                                    <div *ngIf="resendActivationForm.get('profile').get('lastName').touched">
+                                        <small *ngIf="resendActivationForm.get('profile').get('lastName').hasError('required')" class="text-danger">
+                                          {{'common.validation.required'|translate}}
+                                        </small>
+                                        <small *ngIf="resendActivationForm.get('profile').get('lastName').hasError('minlength')" class="text-danger" translate [translateParams]="{min:2}">
+                                          common.validation.minLength
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group form-group-no-border input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                </div>
+                                <input matInput formControlName="uid" class="form-control" [placeholder]="'common.profileDetails.uid' | translate" />
+                                <div *ngIf="resendActivationForm.controls.uid.touched">
+                                    <small *ngIf="resendActivationForm.controls.uid.hasError('required')" class="text-danger">
+                                          {{'common.validation.required'|translate}}
+                                        </small>
+                                    <small *ngIf="uidError" class="text-danger">{{uidError}}</small>
+                                    <small *ngIf="resendActivationForm.controls.uid.hasError('validateMatriculationNumber')" class="text-danger">
+                                          {{'common.validation.required'|translate}}
+                                        </small>
+                                </div>
+                            </div>
+                            <div class="input-group form-group-no-border input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                </div>
+                                <input matInput formControlName="email" class="form-control" [placeholder]="'common.email'|translate" />
+                                <div *ngIf="resendActivationForm.controls.email.touched">
+                                    <small *ngIf="resendActivationForm.controls.email.hasError('required')" class="text-danger">
+                                      {{'common.validation.required'|translate}}
+                                    </small>
+                                    <small *ngIf="mailError" class="text-danger">{{mailError}}</small>
+                                    <small *ngIf="resendActivationForm.controls.email.hasError('emailValidator') && !resendActivationForm.controls.email.hasError('required')" class="text-danger">
+                                      {{'common.validation.invalid'|translate}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer text-center pt-1 pb-1">
+                            <button class="btn btn-primary btn-round btn-lg btn-block" [matTooltip]="'auth.resendActivation.tooltipResendAction' | translate" type="submit" [disabled]="loading || !resendActivationForm?.valid">{{'common.send'|translate}}
+                            </button>
+                        </div>
+                        <div class="text-center">
+                            <h6>
+                                <a routerLink="/register" routerLinkActive="active" class="link">{{'auth.resendActivation.back'|translate}}</a>
+                            </h6>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

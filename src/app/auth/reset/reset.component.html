@@ -1,4 +1,4 @@
-<mat-card *ngIf="hasToken === false" class="reset-card">
+<!--<mat-card *ngIf="hasToken === false" class="reset-card">
     <mat-card-header>
         <mat-card-title>
             <h1>{{ 'auth.resetPassword.requestReset' | translate }}</h1>
@@ -32,3 +32,61 @@
         </form>
     </mat-card-content>
 </mat-card>
+-->
+<div class="section section-signup height-100-pct width-100-pct pt-0 page-header" style="background-image: url('assets/img/bg11.jpg'); background-size: cover; background-position: top center; min-height: 100vh; " filter-color="orange">
+    <div class="container login-page" *ngIf="hasToken === false">
+        <div class="row">
+            <div class="col-md-4 content-center ml-auto mr-auto">
+                <div class="card card-login card-plain">
+                    <form name="form" (ngSubmit)="requestReset()" [formGroup]="resetForm">
+                        <div class="header header-primary text-center">
+                            <h4 class="title">{{ 'auth.resetPassword.requestReset' | translate }}
+                            </h4>
+                        </div>
+                        <div class="content">
+                            <div class="input-group form-group-no-border input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
+                                </div>
+                                <input matInput formControlName="email" class="form-control" [placeholder]="'common.email' | translate">
+                            </div>
+                        </div>
+                        <div class="footer text-center pt-1 pb-1">
+                            <button class="btn btn-primary btn-round btn-lg btn-block" [matTooltip]="'auth.tooltip.ResetPassword' | translate" type="submit" [disabled]="loading">{{ 'auth.resetPassword.requestReset' | translate }}</button>
+                        </div>
+                        <div class="text-center ">
+                            <h6>
+                                <a routerLink="/login" routerLinkActive="active" class="link">{{'auth.resetPassword.back'|translate}}</a>
+                            </h6>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container login-page" *ngIf="hasToken === true">
+        <div class="row">
+            <div class="col-md-4 content-center ml-auto mr-auto">
+                <div class="card card-login card-plain">
+                    <form name="form" (ngSubmit)="reset()" [formGroup]="resetForm">
+                        <div class="header header-primary text-center">
+                            <h4 class="title">{{ 'auth.resetPassword.requestReset' | translate }}
+                            </h4>
+                        </div>
+                        <div class="content">
+                            <app-password-input [form]="resetForm"></app-password-input>
+                        </div>
+                        <div class="footer text-center pt-1 pb-1">
+                            <button class="btn btn-primary btn-round btn-lg btn-block" [matTooltip]=" 'auth.tooltip.ResetPassword' | translate " type="submit " [disabled]="loading ">{{ 'auth.resetPassword.reset' | translate }}</button>
+                        </div>
+                        <div class="text-center ">
+                            <h6>
+                                <a routerLink="/login" routerLinkActive="active " class="link ">{{'auth.resetPassword.back'|translate}}</a>
+                            </h6>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
