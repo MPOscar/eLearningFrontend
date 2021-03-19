@@ -5,13 +5,19 @@ import {AuthenticationService} from './authentication.service';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs/index';
 import 'rxjs/add/observable/empty';
+import { ConfigService } from '../../common/config/services/config.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class BackendService {
 
-  public static readonly API_URL = '/api/';
+  public static readonly API_URL = environment.apiUrl;
 
-  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
+  constructor(
+      private http: HttpClient,
+      private authenticationService: AuthenticationService,
+      private configService: ConfigService,
+      ) {
   }
 
   private handleUnauthorized = (err) => {

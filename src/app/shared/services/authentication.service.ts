@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class AuthenticationService {
 
-  public static readonly API_URL = '/api/';
+  public static readonly API_URL = environment.apiUrl;
 
   public isLoggedIn: Boolean = false;
 
