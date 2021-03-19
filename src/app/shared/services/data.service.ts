@@ -47,7 +47,6 @@ export abstract class DataService {
                 });
               });
             }
-
             resolve(responseItems);
           },
           (error) => reject(error)

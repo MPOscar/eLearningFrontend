@@ -8,6 +8,8 @@ import {ResetComponent} from './reset/reset.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {RouterModule} from '@angular/router';
+import { ErrorMessagesModule } from '../ui/modules/error-messages/error-messages.module';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import {RouterModule} from '@angular/router';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    ErrorMessagesModule
   ],
   declarations: [
     LoginComponent,

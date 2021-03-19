@@ -136,6 +136,12 @@
     }
 }
 
+.form-control {
+    border-radius: 50px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-left-radius: 0px !important
+}
+
 .input-group-text {
     background-color: $white-bg;
     border: 1px solid $light-gray;

@@ -24,7 +24,7 @@ export class BackendService {
   }
 
   private get defaultHttpClientOptions () {
-    return {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+    return {headers: new HttpHeaders({'Content-Type': 'application/json', Authorization: localStorage.getItem('token')})};
   }
 
   head(serviceUrl: string): Observable<any> {
@@ -62,7 +62,6 @@ export class BackendService {
   delete(serviceUrl: string): Observable<any> {
     return this.http.delete(BackendService.API_URL + serviceUrl, this.defaultHttpClientOptions)
       .pipe(catchError(this.handleUnauthorized));
-
   }
 
   onBeforeUpload(event: any, id: string, extension: string) {

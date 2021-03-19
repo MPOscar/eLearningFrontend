@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Validators, FormGroup, FormBuilder, FormControl} from '@angular/forms';
+import {Validators, FormGroup, FormBuilder, FormControl, ValidationErrors} from '@angular/forms';
 import {AuthenticationService} from '../../shared/services/authentication.service';
 import {Router} from '@angular/router';
 import {ShowProgressService} from '../../shared/services/show-progress.service';
@@ -22,6 +22,8 @@ export class RegisterComponent implements OnInit {
   uidError = null;
   mailError = null;
   teacherMailRegex: string;
+  
+  _validationErrors: ValidationErrors[];
 
   private trimFormFields() {
     this.registerForm.value.email = this.registerForm.value.email.trim();
@@ -49,6 +51,7 @@ export class RegisterComponent implements OnInit {
     this.titleService.setTitle('Register');
     // reset login status
     this.authenticationService.unsetAuthData();
+
     this.generateForm();
   }
 

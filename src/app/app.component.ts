@@ -25,6 +25,8 @@ import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
 import { TranslatableSnackBarService } from "./shared/services/translatable-snack-bar.service";
 import { NavbarComponent } from "./start/components/navbar/navbar.component";
 import * as Rellax from "rellax";
+import { ErrorHandlingModule } from './common/error-handling/error-handling.module';
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",

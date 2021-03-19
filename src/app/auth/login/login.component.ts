@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
     this.loginForm.value.email = this.loginForm.value.email.replace(/\s/g, '').toLowerCase();
     this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password).then(
       () => {
-
         if (this.authGuard.redirectUrl) {
           this.router.navigate([this.authGuard.redirectUrl])
             .then(() => this.authGuard.redirectUrl = null)

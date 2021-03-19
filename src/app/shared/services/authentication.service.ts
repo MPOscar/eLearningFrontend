@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {UserService} from './user.service';
 import {IUser} from '../../common/shared/models/IUser';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
@@ -25,8 +26,11 @@ export class AuthenticationService {
       return this.http.post(AuthenticationService.API_URL + 'auth/login', {email: email, password: password})
       .subscribe(
         (response) => {
+          let data: any = response;
           this.isLoggedIn = true;
           localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('token', data.token);
+          console.log(data.token);
 
           this.userService.setUser(response['user']);
 

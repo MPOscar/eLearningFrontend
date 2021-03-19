@@ -61,6 +61,8 @@ import { PrivacyModule } from "./privacy/privacy.module";
 import { TranslationErrorService } from "./shared/services/translation-error.service";
 import { MissingTranslationHandler } from "@ngx-translate/core";
 import { ComponentsModule } from './components/components.module';
+import { ErrorHandlingModule } from './common/error-handling/error-handling.module';
+import { UiModule } from './ui/ui.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -98,7 +100,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     NotificationModule,
     NavbarModule,
-    ComponentsModule
+    ComponentsModule,
+    ErrorHandlingModule,
+    UiModule
   ],
   providers: [
     UserService,

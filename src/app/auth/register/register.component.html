@@ -168,7 +168,9 @@
                                         <span class="input-group-text">  <i class="now-ui-icons users_circle-08"></i></span>
                                     </div>
                                     <input matInput formControlName="firstName" class="form-control" [placeholder]="'common.profileDetails.firstName'|translate" maxlength="64" />
-                                    <div *ngIf="registerForm.get('profile').get('firstName').touched">
+                                    <error-messages matSuffix for="firstName" [validationErrorMessages]="'required'"></error-messages>
+
+                                    <!--<div *ngIf="registerForm.get('profile').get('firstName').touched">
                                         <small *ngIf="registerForm.get('profile').get('firstName').hasError('required')" class="text-danger">
                                       {{'common.validation.required'|translate}}
                                     </small>
@@ -178,7 +180,7 @@
                                         <small *ngIf="registerForm.get('profile').get('firstName').hasError('maxlength')" class="text-danger" translate [translateParams]="{max:64}">
                                       common.validation.maxLength
                                     </small>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="input-group form-group-no-border input-lg">
                                     <div class="input-group-prepend">
